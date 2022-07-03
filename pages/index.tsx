@@ -8,7 +8,7 @@ interface Props {
    posts: Post[];
 }
 function Home({ posts }: Props) {
-   console.log(process.env.NEXT_PUBLIC_SANITY_PROJECT_ID)
+
    return (
       <div className="max-w-7xl mx-auto">
          <Head>

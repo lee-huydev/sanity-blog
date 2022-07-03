@@ -6,10 +6,10 @@ type Data = {
    err?: any;
 };
 const config = {
-   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
-   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+   dataset: 'production',
+   projectId: 'i7b4vj8j',
    useCdn: process.env.NODE_ENV === 'production',
-   token: process.env.SANITY_API_TOKEN,
+   token: 'skKMNIeuGQ1PeAn0ZTVV6PEC7wg5A8FuiSqbOO94AL5pfMfg1hNtzqXUBcFWLiDhZEx9NzwWqTSup1HhvwqyupIyOLJnnlAs2wQJK7wKbxPP7Fk9IpfrBD3PJSfxWbpBoWNVHt5XAT6RZ1yoHhyLlZ67GvopOKLayxvF8nS3Z3NTvcYHNh8x',
 };
 const client = sanityClient(config);
 export default async function createComment(

@@ -228,7 +228,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
    console.log(params);
-   const query = `*[_type == "post" && _id == $_id]{ 
+   const query = `*[_type == "post" && _id == $_id][0]{ 
         _id,
       title,
       description,
@@ -248,7 +248,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       _id: `${params?.id}`,
    });
 
-   if (!res || res.length == 0) {
+   if (!res) {
       return {
          notFound: true,
       };

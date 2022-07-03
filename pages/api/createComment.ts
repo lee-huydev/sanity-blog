@@ -6,10 +6,10 @@ type Data = {
    err?: any;
 };
 const config = {
-   dataset: 'production',
-   projectId: 'i7b4vj8j',
+   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
    useCdn: process.env.NODE_ENV === 'production',
-   token: 'skKMNIeuGQ1PeAn0ZTVV6PEC7wg5A8FuiSqbOO94AL5pfMfg1hNtzqXUBcFWLiDhZEx9NzwWqTSup1HhvwqyupIyOLJnnlAs2wQJK7wKbxPP7Fk9IpfrBD3PJSfxWbpBoWNVHt5XAT6RZ1yoHhyLlZ67GvopOKLayxvF8nS3Z3NTvcYHNh8x',
+   token: process.env.SANITY_API_TOKEN,
 };
 const client = sanityClient(config);
 export default async function createComment(
@@ -31,6 +31,6 @@ export default async function createComment(
    } catch (err) {
       return res.status(500).json({ message: `Coundn't submit comment`, err });
    }
-   console.log("Comment submited")
+   console.log('Comment submited');
    return res.status(200).json({ message: 'Comment submited' });
 }

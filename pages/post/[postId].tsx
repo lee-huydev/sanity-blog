@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import PortableText from 'react-portable-text';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Header, Loading } from '@components/index';
+import { Header, Loading, PageNotFound } from '@components/index';
 import { sanityClient, urlFor } from '@sanity';
 import { ID, Post, InputForm } from '@typing';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
@@ -24,7 +24,7 @@ const PostDetail = ({ post }: Props) => {
    };
    const [data] = post;
    if(!data) {
-      return null
+      return <PageNotFound />
    }
    const _publishedAt = new Date(data.publishedAt).toLocaleString();
    // Handler form
@@ -236,12 +236,6 @@ export const getStaticProps: GetStaticProps = async (
    const res = await sanityClient.fetch(query, {
       _id: id,
    });
-
-   if (!id || (!res && res.length == 0)) {
-      return {
-         notFound: true,
-      };
-   }
    return {
       props: {
          post: res,

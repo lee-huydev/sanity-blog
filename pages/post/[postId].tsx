@@ -5,7 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Header, Loading } from '@components/index';
 import { sanityClient, urlFor } from '@sanity';
 import { ID, Post, InputForm } from '@typing';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 
 type Props = {
    post: Post[];
@@ -13,17 +13,21 @@ type Props = {
 
 const PostDetail = ({ post }: Props) => {
    const router = useRouter();
-   const [data] = post;
-   console.log(data);
-   const _publishedAt = new Date(data.publishedAt).toLocaleString();
-   // Handler form
    const [submited, setSubmited] = useState<boolean>(false);
    const {
       register,
       handleSubmit,
       formState: { errors },
    } = useForm<InputForm>();
-
+   if (router.isFallback) {
+      return <div>Loading...</div>
+   };
+   const [data] = post;
+   if(!data) {
+      return null
+   }
+   const _publishedAt = new Date(data.publishedAt).toLocaleString();
+   // Handler form
    const onSubmit: SubmitHandler<InputForm> = async (data) => {
       fetch('/api/createComment', {
          method: 'POST',
@@ -38,10 +42,6 @@ const PostDetail = ({ post }: Props) => {
             setSubmited(false);
          });
    };
-   console.log(router.isFallback)
-   if (router.isFallback) {
-      return <Loading />;
-   }
    return (
       <main>
          <Header />
@@ -204,16 +204,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
    const ids = await sanityClient.fetch(query);
    const paths = ids.map((id: ID) => ({
       params: {
-         id: id._id,
+         postId: id._id,
       },
    }));
+   console.log(paths);
    return {
       paths,
-      fallback: 'blocking',
+      fallback: true,
    };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async (
+   context: GetStaticPropsContext
+) => {
+   const id = context.params?.postId;
    const query = `*[_type == "post" && _id == $_id]{ 
         _id,
       title,
@@ -231,10 +235,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }`;
 
    const res = await sanityClient.fetch(query, {
-      _id: `${params?.id}`,
+      _id: id,
    });
 
-   if (!res) {
+   if (!id || (!res && res.length == 0)) {
       return {
          notFound: true,
       };

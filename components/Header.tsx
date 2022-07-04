@@ -9,7 +9,7 @@ const Header = (props: Props) => {
          <div className="flex items-center space-x-5">
             <Link href="/">
                <img
-                  className="w-64 object-contain cursor-pointer"
+                  className="w-40 object-contain cursor-pointer md:w-64"
                   src="/images/images.png"
                   alt=""
                />
@@ -24,7 +24,7 @@ const Header = (props: Props) => {
          </div>
          <div className="text-green-600 flex space-x-5 items-center">
             <h3>Signin</h3>
-            <h3 className="px-4 py-1 border rounded-full border-green-600">
+            <h3 className="px-2 py-1 border rounded-full border-green-600">
                Get Started
             </h3>
          </div>

@@ -14,13 +14,13 @@ const Posts = ({ post }: Props) => {
                   <img className="object-cover w-full h-60 group-hover:scale-105 transition-transform duration-200 ease-in-out" src={urlFor(post.mainImage).url()} alt="" />
                </div>
                <div className="flex justify-between items-center p-5 bg-white">
-                  <div>
+                  <div className="basis-4/5">
                      <p className="text-lg font-bold">{post.title}</p>
                      <p>{post.description}</p>
                   </div>
                   <div>
                      <img
-                        className="h-12 w-12 rounded-full"
+                        className="basis-1/5 h-12 w-12 rounded-full"
                         src={urlFor(post.author.image).url()}
                         alt=""
                      />

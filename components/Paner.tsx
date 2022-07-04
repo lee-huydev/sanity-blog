@@ -6,7 +6,7 @@ const Paner = () => {
          <div className="px-10 space-y-5 flex-grow">
             <h1 className="text-4xl max-w-xl font-serif md:text-6xl">
                <span className="underline decoration-black decoration-4">
-                  TECHBLOG
+                  Medium
                </span>{' '}
                is place to write, read and connect
             </h1>

@@ -20,7 +20,7 @@ const PostDetail = ({ post }: Props) => {
       formState: { errors },
    } = useForm<InputForm>();
    if (router.isFallback) {
-      return <div>Loading...</div>
+      return <Loading />
    };
    const [data] = post;
    if(!data) {
@@ -207,7 +207,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
          postId: id._id,
       },
    }));
-   console.log(paths);
    return {
       paths,
       fallback: true,

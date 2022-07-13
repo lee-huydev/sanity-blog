@@ -230,7 +230,7 @@ export const getStaticProps: GetStaticProps = async (
       categories,
       publishedAt,
       body,
-      "comments": *[_type == "comment" && approved == true && post._ref == ^._id]
+      "comments": *[_type == "comment" && post._ref == ^._id]
     }`;
 
    const res = await sanityClient.fetch(query, {
